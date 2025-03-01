@@ -5,11 +5,12 @@ import { motion } from "framer-motion";
 const projects = [
   {
     id: 1,
-    title: "Project 1",
-    description: "A brief description of your project...",
-    image: "https://via.placeholder.com/400x200",
-    tags: ["React", "Tailwind CSS", "Node.js"],
-    link: "#",
+    title: "Natours API",
+    description:
+      "The Natours API is a RESTful API designed for managing and booking tours. It provides endpoints for retrieving, creating, updating, and deleting tours, as well as user authentication and authorization. The API supports secure user authentication with JWT.",
+    image: "/images/natours.png",
+    tags: ["Node.js", "Express", "mongoDB"],
+    link: "https://documenter.getpostman.com/view/40148474/2sAYX2PQGQ",
   },
   {
     id: 2,
@@ -51,7 +52,7 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-semibold text-center mb-12"
         >
-          Projects 🚀
+          Projects
         </motion.h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (

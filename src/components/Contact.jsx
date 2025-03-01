@@ -93,7 +93,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-semibold text-[#0d1137] mb-6"
         >
-          Get in Touch 🌟
+          Get in Touch
         </motion.h3>
         <motion.p
           initial={{ y: 20, opacity: 0 }}

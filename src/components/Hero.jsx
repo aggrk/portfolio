@@ -156,11 +156,11 @@ export default function Hero() {
           variants={childVariants}
           className="mt-8 text-lg text-gray-300 max-w-xl mx-auto leading-relaxed"
         >
-          I love turning ideas into impactful solutions. With a strong
-          foundation in front-end and back-end development, I build scalable,
-          modern, and meaningful applications. My mission is to create
-          technology that solves real-world challenges, and I strive to grow
-          every day as a developer and programmer.
+          I enjoy turning ideas into impactful solutions. As I continue to
+          strengthen my skills in front-end and back-end development, I focus on
+          building scalable and modern applications. My goal is to create
+          technology that solves real-world challenges while learning and
+          growing every day as a developer and programmer.
         </motion.p>
 
         {/* Call-to-action button */}

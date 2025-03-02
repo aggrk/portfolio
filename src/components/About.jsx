@@ -60,14 +60,14 @@ export default function About() {
           className="text-lg text-[#0d1137] leading-relaxed mb-8"
         >
           I am a passionate developer driven by the desire to be useful, do
-          what’s meaningful, and make things happen. With two years of
-          experience in coding, I have honed my skills in building interactive
-          and functional applications. My mission is to create solutions that
-          solve real-life problems, leveraging technology to make a difference.
-          I am constantly learning and refining my craft, aiming to become a
-          highly skilled developer and programmer. Every project I work on is a
-          step toward that goal, pushing boundaries and embracing challenges.
-          Let’s build something impactful together!
+          what’s meaningful, and make things happen. With a strong foundation in
+          coding, I have honed my skills in building interactive and functional
+          applications. My mission is to create solutions that solve real-life
+          problems, leveraging technology to make a difference. I am constantly
+          learning and refining my craft, aiming to become a highly skilled
+          developer and programmer. Every project I work on is a step toward
+          that goal, pushing boundaries and embracing challenges. Let’s build
+          something impactful together!
         </motion.p>
 
         <div className="mt-6">

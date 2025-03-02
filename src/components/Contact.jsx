@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
-  FaWhatsapp,
+  FaTelegram,
   FaTwitter,
   FaLinkedin,
   FaDiscord,
@@ -122,16 +122,19 @@ export default function Contact() {
           className="flex justify-center space-x-6"
         >
           {[
-            { Icon: FaWhatsapp, href: "https://wa.me/your-whatsapp-number" },
+            { Icon: FaTelegram, href: "https://t.me/ItsKennedyK" },
             { Icon: FaTwitter, href: "https://x.com/ItsKennedyK" },
             {
               Icon: BsFillCloudFill,
               href: "https://bsky.app/profile/itskennedyk.bsky.social",
             },
-            { Icon: FaLinkedin, href: "https://linkedin.com/in/your-username" },
+            {
+              Icon: FaLinkedin,
+              href: "https://linkedin.com/in/kennedyphinias",
+            },
             {
               Icon: FaDiscord,
-              href: "https://discord.com/users/your-username",
+              href: "https://discord.com/users/itskennedyk",
             },
           ].map(({ Icon, href }, index) => (
             <motion.a

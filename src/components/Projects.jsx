@@ -16,7 +16,7 @@ const projects = [
     id: 2,
     title: "Natours Frontend",
     description:
-      "The Natours Frontend is a responsive tour booking web application that allows users to explore available tours, view detailed tour information, book tours, and manage their accounts. It features authentication, interactive maps, user reviews, and a smooth booking experience. Admins can manage tours, bookings, and users through a dedicated dashboard. ThIS SITE IS STILL UNDER CONSTRUCTION",
+      "The Natours Frontend is a responsive tour booking web application that allows users to explore available tours, view detailed tour information, book tours, and manage their accounts. It features authentication, interactive maps, user reviews, and a smooth booking experience. Admins can manage tours, bookings, and users through a dedicated dashboard. THIS SITE IS STILL UNDER CONSTRUCTION",
     image: "/images/natours.jpg",
     tags: ["React.js", "Tailwind"],
     link: "https://natours-aggr.netlify.app",

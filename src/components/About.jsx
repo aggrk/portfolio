@@ -10,6 +10,7 @@ import {
   FaDatabase,
   FaCode,
 } from "react-icons/fa";
+import { SiNextdotjs } from "react-icons/si";
 import { SiTailwindcss, SiExpress, SiMongodb, SiRedux } from "react-icons/si";
 
 const skills = [
@@ -17,6 +18,7 @@ const skills = [
   { name: "CSS", icon: <FaCss3Alt /> },
   { name: "Tailwind CSS", icon: <SiTailwindcss /> },
   { name: "React.js", icon: <FaReact /> },
+  { name: "Next.js", icon: <SiNextdotjs /> },
   { name: "Styled Components", icon: <FaCode /> },
   { name: "React Hook Form", icon: <FaReact /> },
   { name: "React Query", icon: <FaReact /> },

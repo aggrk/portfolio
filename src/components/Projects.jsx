@@ -14,6 +14,24 @@ const projects = [
   },
   {
     id: 2,
+    title: "Printforge",
+    description:
+      "PrintForge is a Next.js application I designed to practice and showcase my Next.js skills. It's the ultimate platform for 3D printing enthusiasts, designers, and makers.Built with modern web technologies, this project demonstrates my ability to create full-stack applications with responsive interfaces and efficient backend integrations. I'm continuously expanding its features to explore more advanced Next.js capabilities.",
+    image: "/images/printforge.png",
+    tags: ["Next.js", "Tailwind"],
+    link: "https://printforge-aggr.vercel.app/",
+  },
+  {
+    id: 3,
+    title: "Ardhi Digital",
+    description:
+      "Ardhi Digital is a multidisciplinary company offering services in environmental science, engineering, and technology. Their work includes environmental impact assessments, wastewater treatment systems, hydrological modelling, and software development.The goal of the project was to create a clean, professional, and modern website that reflects the company's blend of environmental responsibility and innovative tech solutions. The website features smooth navigation, responsive design, and clearly structured service sections to enhance user experience and showcase the company's diverse expertise.",
+    image: "/images/ardhi.png",
+    tags: ["React.js", "Tailwind"],
+    link: "https://mazingira-aggr.netlify.app",
+  },
+  {
+    id: 4,
     title: "Natours Frontend",
     description:
       "The Natours Frontend is a responsive tour booking web application that allows users to explore available tours, view detailed tour information, book tours, and manage their accounts. It features authentication, interactive maps, user reviews, and a smooth booking experience. Admins can manage tours, bookings, and users through a dedicated dashboard. THIS SITE IS STILL UNDER CONSTRUCTION",
@@ -22,7 +40,7 @@ const projects = [
     link: "https://natours-aggr.netlify.app",
   },
   {
-    id: 3,
+    id: 5,
     title: "UsePopcorn App",
     description:
       "The UsePopcorn App is a movie search application designed to help users search for movies, rate them, and add them to a watched list. I created this app to practice and improve my React skills. The application is currently not mobile responsive, and I plan to add more features.",
@@ -31,7 +49,7 @@ const projects = [
     link: "https://movie-search-aggr.netlify.app/",
   },
   {
-    id: 4,
+    id: 6,
     title: "React Quizzical",
     description:
       "The React Quizzical App is an application that displays questions for users to answer. It provides a score and highlights the correct answers for any questions the user got wrong. I created this application to practice my React skills.",
@@ -40,7 +58,7 @@ const projects = [
     link: "https://react-quiz-aggr.netlify.app/",
   },
   {
-    id: 5,
+    id: 7,
     title: "Ecommerce API",
     description:
       "The E-commerce API is a RESTful API designed to allow users to browse and order products. It provides endpoints for viewing products, placing orders, adding and removing items from the cart, user authentication (login and signup), and enabling admins and sellers to manage products by adding or deleting them.",
@@ -49,7 +67,7 @@ const projects = [
     link: "#",
   },
   {
-    id: 6,
+    id: 8,
     title: "Ecommerce Frontend",
     description:
       "The E-commerce Frontend is a responsive web application that allows users to browse products, add items to the cart, place orders, and manage their profiles. It includes authentication, product search and filtering, a wishlist, order tracking, and a seamless checkout process. Admins and sellers can manage inventory, orders, and users efficiently.",

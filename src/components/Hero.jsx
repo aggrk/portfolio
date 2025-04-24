@@ -32,8 +32,8 @@ export default function Hero() {
   const fullText = "Hi, I'm Kennedy Phinias";
   const roles = [
     "Full-Stack Developer",
+    "Mobile App Developer",
     "React Enthusiast",
-    // "Problem Solver",
     // "Tech Enthusiast",
   ];
   const typingSpeed = 100;

@@ -2,13 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-  FaTelegram,
-  FaTwitter,
-  FaLinkedin,
-  FaDiscord,
-  FaEnvelope,
-} from "react-icons/fa";
+import { FaTelegram, FaLinkedin, FaDiscord, FaEnvelope } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { BsFillCloudFill } from "react-icons/bs";
 
 const socialVariants = {
@@ -123,7 +118,7 @@ export default function Contact() {
         >
           {[
             { Icon: FaTelegram, href: "https://t.me/ItsKennedyK" },
-            { Icon: FaTwitter, href: "https://x.com/ItsKennedyK" },
+            { Icon: FaXTwitter, href: "https://x.com/ItsKennedyK" },
             {
               Icon: BsFillCloudFill,
               href: "https://bsky.app/profile/itskennedyk.bsky.social",

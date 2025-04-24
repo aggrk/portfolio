@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-vars */
-
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Particles from "react-particles";
-import { loadFull } from "tsparticles"; // For tsParticles
+import { loadSlim } from "tsparticles-slim"; // Using slim version for performance
+import { FiGithub, FiLinkedin, FiArrowDown, FiInstagram } from "react-icons/fi";
+import { FaReact, FaJs } from "react-icons/fa";
+import { FaXTwitter, FaDiscord, FaTelegram } from "react-icons/fa6";
+import { SiNextdotjs, SiExpress } from "react-icons/si";
 
 const heroVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -24,8 +27,16 @@ const childVariants = {
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("");
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const fullText = "Hi, I'm Kennedy Phinias";
-  const typingSpeed = 100; // Speed in milliseconds
+  const roles = [
+    "Full-Stack Developer",
+    "React Enthusiast",
+    // "Problem Solver",
+    // "Tech Enthusiast",
+  ];
+  const typingSpeed = 100;
 
   // Typing effect for the headline
   useEffect(() => {
@@ -35,6 +46,7 @@ export default function Hero() {
         setTypedText(fullText.slice(0, currentIndex + 1));
         currentIndex++;
       } else {
+        setTypingComplete(true);
         clearInterval(typingInterval);
       }
     }, typingSpeed);
@@ -42,10 +54,22 @@ export default function Hero() {
     return () => clearInterval(typingInterval);
   }, []);
 
+  // Role rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [roles.length]);
+
   // Initialize particles
-  const particlesInit = async (engine) => {
-    await loadFull(engine);
-  };
+  const particlesInit = useCallback(async (engine) => {
+    await loadSlim(engine); // Using slim version
+  }, []);
+
+  const particlesLoaded = useCallback(async (container) => {
+    console.log("Particles loaded", container);
+  }, []);
 
   return (
     <motion.section
@@ -53,12 +77,13 @@ export default function Hero() {
       variants={heroVariants}
       initial="hidden"
       animate="visible"
-      className="bg-gradient-to-br from-[#0d1137] to-[#1a1f4e] pt-32 pb-20 text-center px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-[80vh] relative overflow-hidden"
+      className="bg-gradient-to-br from-[#0d1137] via-[#1a1f4e] to-[#2a2f6e] pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen relative overflow-hidden"
     >
-      {/* Particle Background */}
+      {/* Particle Background (Exclusive to Hero Section) */}
       <Particles
-        id="tsparticles"
+        id="tsparticles-hero"
         init={particlesInit}
+        loaded={particlesLoaded}
         options={{
           background: {
             color: {
@@ -68,34 +93,36 @@ export default function Hero() {
           fpsLimit: 60,
           interactivity: {
             events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
               onHover: {
                 enable: true,
                 mode: "repulse",
               },
+              onClick: {
+                enable: true,
+                mode: "push",
+              },
+              resize: true,
             },
             modes: {
+              repulse: {
+                distance: 150,
+                duration: 0.4,
+                speed: 1,
+              },
               push: {
                 quantity: 4,
-              },
-              repulse: {
-                distance: 100,
-                duration: 0.4,
               },
             },
           },
           particles: {
             color: {
-              value: "#e52165",
+              value: ["#e52165", "#0d1137", "#ffffff", "#0dd3ff"],
             },
             links: {
               color: "#e52165",
-              distance: 150,
+              distance: 120,
               enable: true,
-              opacity: 0.5,
+              opacity: 0.3,
               width: 1,
             },
             collisions: {
@@ -107,25 +134,30 @@ export default function Hero() {
               outModes: {
                 default: "bounce",
               },
-              random: false,
-              speed: 2,
+              random: true,
+              speed: 1.5,
               straight: false,
             },
             number: {
               density: {
                 enable: true,
-                area: 800,
+                area: 1000,
               },
-              value: 80,
+              value: 60,
             },
             opacity: {
-              value: 0.5,
+              value: { min: 0.2, max: 0.6 },
+              animation: {
+                enable: true,
+                speed: 1,
+                sync: false,
+              },
             },
             shape: {
               type: "circle",
             },
             size: {
-              value: { min: 1, max: 3 },
+              value: { min: 1, max: 4 },
             },
           },
           detectRetina: true,
@@ -133,28 +165,54 @@ export default function Hero() {
         className="absolute inset-0 z-0"
       />
 
+      {/* Floating Tech Icons */}
+      <div className="absolute top-1/4 left-10 opacity-20 animate-float">
+        <FaReact className="text-6xl text-cyan-400" />
+      </div>
+      <div className="absolute bottom-1/3 right-20 opacity-20 animate-float-delay">
+        <SiNextdotjs className="text-6xl text-black dark:text-white" />
+      </div>
+      <div className="absolute top-1/3 right-1/4 opacity-20 animate-float-delay-2">
+        <FaJs className="text-6xl text-yellow-400" />
+      </div>
+      <div className="absolute bottom-1/4 left-1/4 opacity-20 animate-float-delay-3">
+        <SiExpress className="text-6xl text-gray-600 dark:text-gray-200" />
+      </div>
+
       {/* Content */}
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10 text-center">
         {/* Headline with typing effect */}
         <motion.h2
           variants={childVariants}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#e52165] tracking-tight"
+          className="text-5xl sm:text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e52165] via-[#0dd3ff] to-[#e52165] tracking-tight leading-tight"
         >
           {typedText}
+          <span className={`cursor-blink ${typingComplete ? "hidden" : ""}`}>
+            |
+          </span>
         </motion.h2>
 
-        {/* Subtitle */}
-        <motion.p
+        {/* Animated Role Text */}
+        <motion.div
           variants={childVariants}
-          className="text-xl sm:text-2xl mt-6 text-white font-light"
+          className="text-2xl sm:text-3xl mt-6 h-12"
         >
-          Full-Stack Developer | React Enthusiast
-        </motion.p>
+          <motion.span
+            key={currentRoleIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-white font-medium inline-block"
+          >
+            {roles[currentRoleIndex]}
+          </motion.span>
+        </motion.div>
 
         {/* Description */}
         <motion.p
           variants={childVariants}
-          className="mt-8 text-lg text-gray-300 max-w-xl mx-auto leading-relaxed"
+          className="mt-8 text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
         >
           I enjoy turning ideas into impactful solutions. As I continue to
           strengthen my skills in front-end and back-end development, I focus on
@@ -164,32 +222,119 @@ export default function Hero() {
         </motion.p>
 
         {/* Call-to-action button */}
-        <motion.a
+        <motion.div variants={childVariants} className="mt-12">
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 rounded-full bg-gradient-to-r from-[#e52165] to-[#9c1a4a] text-white hover:from-[#d11a55] hover:to-[#7e153d] transition-all duration-300 font-semibold relative overflow-hidden shadow-lg hover:shadow-xl inline-block"
+          >
+            <span className="relative z-10">Get in touch</span>
+            <span className="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition-opacity duration-300"></span>
+          </motion.a>
+        </motion.div>
+
+        {/* Social Links */}
+        <motion.div
           variants={childVariants}
-          href="#contact"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-12 inline-block bg-[#e52165] text-white px-8 py-4 rounded-full hover:bg-[#d11a55] transition-colors duration-300 font-semibold relative overflow-hidden"
+          className="flex gap-6 mt-12 justify-center"
         >
-          <span className="relative z-10">Get in Touch</span>
-          <span className="absolute inset-0 bg-white opacity-10 hover:opacity-20 transition-opacity duration-300"></span>
-          <span className="absolute inset-0 rounded-full glow-effect"></span>
-        </motion.a>
+          {[
+            { icon: <FiGithub />, url: "https://github.com/aggrk" },
+            {
+              icon: <FiLinkedin />,
+              url: "https://linkedin.com/in/kennedyphinias",
+            },
+            { icon: <FaXTwitter />, url: "https://x.com/ItsKennedyK" },
+            {
+              icon: <FaDiscord />,
+              url: "https://discord.com/users/itskennedyk",
+            },
+            { icon: <FaTelegram />, url: "https://t.me/ItsKennedyK" },
+          ].map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -5, scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="text-2xl text-gray-300 hover:text-[#e52165] transition-colors duration-300"
+            >
+              {social.icon}
+            </motion.a>
+          ))}
+        </motion.div>
       </div>
 
-      {/* CSS for the glowing button */}
-      <style jsx>{`
-        .glow-effect {
-          box-shadow: 0 0 10px 5px rgba(229, 33, 101, 0.5);
-          animation: glow 2s infinite alternate;
-        }
+      {/* Animated Arrow Indicator */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 group"
+      >
+        <motion.div
+          animate={{
+            y: [0, 10, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            repeatType: "loop",
+          }}
+          className="flex flex-col items-center"
+        >
+          <FiArrowDown className="text-3xl text-[#e52165] group-hover:text-white transition-colors duration-300" />
+          <motion.div
+            className="h-8 w-0.5 bg-[#e52165] group-hover:bg-white mt-2 transition-colors duration-300"
+            animate={{
+              height: [8, 16, 8],
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          />
+        </motion.div>
+      </motion.a>
 
-        @keyframes glow {
-          0% {
-            box-shadow: 0 0 10px 5px rgba(229, 33, 101, 0.5);
-          }
+      {/* CSS for animations */}
+      <style jsx="true">{`
+        .cursor-blink {
+          animation: blink 1s infinite;
+        }
+        @keyframes blink {
+          0%,
           100% {
-            box-shadow: 0 0 20px 10px rgba(229, 33, 101, 0.7);
+            opacity: 1;
+          }
+          50% {
+            opacity: 0;
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delay {
+          animation: float 6s ease-in-out infinite 2s;
+        }
+        .animate-float-delay-2 {
+          animation: float 6s ease-in-out infinite 4s;
+        }
+        .animate-float-delay-3 {
+          animation: float 6s ease-in-out infinite 3s;
+        }
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(5deg);
           }
         }
       `}</style>

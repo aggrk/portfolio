@@ -25,7 +25,7 @@ export default function Footer() {
         whileTap={{ scale: 0.9 }}
         className="fixed bottom-8 right-8 p-4 bg-[#e52165] text-white rounded-full shadow-lg hover:bg-[#d11a55] transition-colors duration-300"
       >
-        <FaArrowUp className="w-6 h-6" />
+        <FaArrowUp className="w-5 h-5" />
       </motion.button>
 
       {/* Copyright Text */}

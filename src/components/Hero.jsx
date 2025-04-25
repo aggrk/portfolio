@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { useEffect, useState, useCallback } from "react";
-import Particles from "react-particles";
-import { loadSlim } from "tsparticles-slim"; // Using slim version for performance
-import { FiGithub, FiLinkedin, FiArrowDown, FiInstagram } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { FiGithub, FiLinkedin, FiArrowDown } from "react-icons/fi";
 import { FaReact, FaJs } from "react-icons/fa";
 import { FaXTwitter, FaDiscord, FaTelegram } from "react-icons/fa6";
 import { SiNextdotjs, SiExpress } from "react-icons/si";
 
+// Animation variants
 const heroVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -34,7 +33,6 @@ export default function Hero() {
     "Full-Stack Developer",
     "Mobile App Developer",
     "React Enthusiast",
-    // "Tech Enthusiast",
   ];
   const typingSpeed = 100;
 
@@ -62,129 +60,35 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [roles.length]);
 
-  // Initialize particles
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine); // Using slim version
-  }, []);
-
-  const particlesLoaded = useCallback(async (container) => {
-    console.log("Particles loaded", container);
-  }, []);
-
   return (
     <motion.section
       id="home"
       variants={heroVariants}
       initial="hidden"
       animate="visible"
-      className="bg-gradient-to-br from-[#0d1137] via-[#1a1f4e] to-[#2a2f6e] pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen relative overflow-hidden"
+      className="bg-gradient-to-br from-[#0d1137] via-[#1a1f4e] to-[#2a2f6e] pt-16 sm:pt-24 lg:pt-32 pb-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen relative overflow-hidden"
     >
-      {/* Particle Background (Exclusive to Hero Section) */}
-      <Particles
-        id="tsparticles-hero"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={{
-          background: {
-            color: {
-              value: "transparent",
-            },
-          },
-          fpsLimit: 60,
-          interactivity: {
-            events: {
-              onHover: {
-                enable: true,
-                mode: "repulse",
-              },
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-              resize: true,
-            },
-            modes: {
-              repulse: {
-                distance: 150,
-                duration: 0.4,
-                speed: 1,
-              },
-              push: {
-                quantity: 4,
-              },
-            },
-          },
-          particles: {
-            color: {
-              value: ["#e52165", "#0d1137", "#ffffff", "#0dd3ff"],
-            },
-            links: {
-              color: "#e52165",
-              distance: 120,
-              enable: true,
-              opacity: 0.3,
-              width: 1,
-            },
-            collisions: {
-              enable: true,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "bounce",
-              },
-              random: true,
-              speed: 1.5,
-              straight: false,
-            },
-            number: {
-              density: {
-                enable: true,
-                area: 1000,
-              },
-              value: 60,
-            },
-            opacity: {
-              value: { min: 0.2, max: 0.6 },
-              animation: {
-                enable: true,
-                speed: 1,
-                sync: false,
-              },
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: 1, max: 4 },
-            },
-          },
-          detectRetina: true,
-        }}
-        className="absolute inset-0 z-0"
-      />
-
-      {/* Floating Tech Icons */}
-      <div className="absolute top-1/4 left-10 opacity-20 animate-float">
-        <FaReact className="text-6xl text-cyan-400" />
+      {/* Floating Tech Icons - Modified to show on mobile */}
+      <div className="absolute top-1/4 left-4 sm:left-8 opacity-20 animate-float">
+        <FaReact className="text-3xl sm:text-5xl lg:text-6xl text-cyan-400" />
       </div>
-      <div className="absolute bottom-1/3 right-20 opacity-20 animate-float-delay">
-        <SiNextdotjs className="text-6xl text-black dark:text-white" />
+      <div className="absolute bottom-1/3 right-4 sm:right-8 opacity-20 animate-float-delay">
+        <SiNextdotjs className="text-3xl sm:text-5xl lg:text-6xl text-black dark:text-white" />
       </div>
-      <div className="absolute top-1/3 right-1/4 opacity-20 animate-float-delay-2">
-        <FaJs className="text-6xl text-yellow-400" />
+      <div className="absolute top-1/3 right-1/5 opacity-20 animate-float-delay-2">
+        <FaJs className="text-3xl sm:text-5xl lg:text-6xl text-yellow-400" />
       </div>
-      <div className="absolute bottom-1/4 left-1/4 opacity-20 animate-float-delay-3">
-        <SiExpress className="text-6xl text-gray-600 dark:text-gray-200" />
+      <div className="absolute bottom-1/4 left-1/5 opacity-20 animate-float-delay-3">
+        <SiExpress className="text-3xl sm:text-5xl lg:text-6xl text-gray-600 dark:text-gray-200" />
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto relative z-10 text-center">
+      <div className="max-w-xs sm:max-w-md lg:max-w-4xl mx-auto relative z-10 text-center">
         {/* Headline with typing effect */}
         <motion.h2
           variants={childVariants}
-          className="text-5xl sm:text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e52165] via-[#0dd3ff] to-[#e52165] tracking-tight leading-tight"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e52165] via-[#0dd3ff] to-[#e52165] tracking-tight leading-tight"
+          style={{ fontSize: "clamp(2.5rem, 5vw, 3.75rem)" }}
         >
           {typedText}
           <span className={`cursor-blink ${typingComplete ? "hidden" : ""}`}>
@@ -195,7 +99,7 @@ export default function Hero() {
         {/* Animated Role Text */}
         <motion.div
           variants={childVariants}
-          className="text-2xl sm:text-3xl mt-6 h-12"
+          className="text-xl sm:text-2xl lg:text-3xl mt-4 sm:mt-6 h-10 sm:h-12"
         >
           <motion.span
             key={currentRoleIndex}
@@ -204,6 +108,7 @@ export default function Hero() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
             className="text-white font-medium inline-block"
+            style={{ fontSize: "clamp(1.25rem, 3vw, 1.875rem)" }}
           >
             {roles[currentRoleIndex]}
           </motion.span>
@@ -212,7 +117,8 @@ export default function Hero() {
         {/* Description */}
         <motion.p
           variants={childVariants}
-          className="mt-8 text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
+          className="mt-6 sm:mt-8 text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xs sm:max-w-md lg:max-w-3xl mx-auto"
+          style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)" }}
         >
           I enjoy turning ideas into impactful solutions. As I continue to
           strengthen my skills in front-end and back-end development, I focus on
@@ -222,12 +128,13 @@ export default function Hero() {
         </motion.p>
 
         {/* Call-to-action button */}
-        <motion.div variants={childVariants} className="mt-12">
+        <motion.div variants={childVariants} className="mt-8 sm:mt-10 lg:mt-12">
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-[#e52165] to-[#9c1a4a] text-white hover:from-[#d11a55] hover:to-[#7e153d] transition-all duration-300 font-semibold relative overflow-hidden shadow-lg hover:shadow-xl inline-block"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-[#e52165] to-[#9c1a4a] text-white hover:from-[#d11a55] hover:to-[#7e153d] transition-all duration-300 font-semibold relative overflow-hidden shadow-lg hover:shadow-xl inline-block"
+            aria-label="Get in touch"
           >
             <span className="relative z-10">Get in touch</span>
             <span className="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition-opacity duration-300"></span>
@@ -237,20 +144,34 @@ export default function Hero() {
         {/* Social Links */}
         <motion.div
           variants={childVariants}
-          className="flex gap-6 mt-12 justify-center"
+          className="flex gap-4 sm:gap-6 mt-8 sm:mt-10 lg:mt-12 justify-center"
         >
           {[
-            { icon: <FiGithub />, url: "https://github.com/aggrk" },
+            {
+              icon: <FiGithub />,
+              url: "https://github.com/aggrk",
+              label: "GitHub",
+            },
             {
               icon: <FiLinkedin />,
               url: "https://linkedin.com/in/kennedyphinias",
+              label: "LinkedIn",
             },
-            { icon: <FaXTwitter />, url: "https://x.com/ItsKennedyK" },
+            {
+              icon: <FaXTwitter />,
+              url: "https://x.com/ItsKennedyK",
+              label: "Twitter",
+            },
             {
               icon: <FaDiscord />,
               url: "https://discord.com/users/itskennedyk",
+              label: "Discord",
             },
-            { icon: <FaTelegram />, url: "https://t.me/ItsKennedyK" },
+            {
+              icon: <FaTelegram />,
+              url: "https://t.me/ItsKennedyK",
+              label: "Telegram",
+            },
           ].map((social, index) => (
             <motion.a
               key={index}
@@ -259,7 +180,8 @@ export default function Hero() {
               rel="noopener noreferrer"
               whileHover={{ y: -5, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="text-2xl text-gray-300 hover:text-[#e52165] transition-colors duration-300"
+              className="text-xl sm:text-2xl lg:text-3xl text-gray-300 hover:text-[#e52165] transition-colors duration-300"
+              aria-label={`Visit my ${social.label}`}
             >
               {social.icon}
             </motion.a>
@@ -273,7 +195,8 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 group"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10 group"
+        aria-label="Scroll to about section"
       >
         <motion.div
           animate={{
@@ -286,11 +209,11 @@ export default function Hero() {
           }}
           className="flex flex-col items-center"
         >
-          <FiArrowDown className="text-3xl text-[#e52165] group-hover:text-white transition-colors duration-300" />
+          <FiArrowDown className="text-2xl sm:text-3xl text-[#e52165] group-hover:text-white transition-colors duration-300" />
           <motion.div
-            className="h-8 w-0.5 bg-[#e52165] group-hover:bg-white mt-2 transition-colors duration-300"
+            className="h-6 sm:h-8 w-0.5 bg-[#e52165] group-hover:bg-white mt-1 sm:mt-2 transition-colors duration-300"
             animate={{
-              height: [8, 16, 8],
+              height: [6, 12, 6],
               opacity: [0.6, 1, 0.6],
             }}
             transition={{
@@ -335,6 +258,14 @@ export default function Hero() {
           }
           50% {
             transform: translateY(-20px) rotate(5deg);
+          }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+          .content-container {
+            padding-left: 1rem;
+            padding-right: 1rem;
           }
         }
       `}</style>

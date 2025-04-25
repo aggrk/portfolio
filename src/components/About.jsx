@@ -59,7 +59,7 @@ export default function About() {
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg text-[#0d1137] leading-relaxed mb-8"
+          className="text-base text-[#0d1137] leading-relaxed mb-8"
         >
           I am a passionate developer driven by the desire to be useful, do
           what’s meaningful, and make things happen. With a strong foundation in

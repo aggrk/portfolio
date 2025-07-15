@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
-import { FaArrowUp, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function Footer() {
   const scrollToTop = () => {

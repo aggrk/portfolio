@@ -97,7 +97,7 @@ export default function Certificates() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
       viewport={{ once: true, margin: "-100px" }}
-      className="py-16 bg-gray-50"
+      className="py-16 bg-gray-50 relative overflow-hidden"
     >
       {/* Decorative elements */}
       <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#e52165] opacity-10 blur-3xl"></div>

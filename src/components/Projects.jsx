@@ -83,20 +83,9 @@ const projects = [
       "Full-featured e-commerce backend with product management, cart functionality, and user authentication.",
     image: "/images/shop-api.png",
     tags: ["Node.js", "Express", "JWT"],
-    link: "#",
+    link: "https://github.com/aggrk/ecommerce-api",
     github: "#",
     icon: <SiExpress className="text-gray-600 dark:text-gray-200" />,
-  },
-  {
-    id: 8,
-    title: "Ecommerce Frontend",
-    description:
-      "Modern e-commerce platform with product browsing, cart management, and admin dashboard (coming soon).",
-    image: "/images/shop.jpg",
-    tags: ["React", "Redux", "Tailwind"],
-    link: "#",
-    github: "#",
-    icon: <FaReact className="text-cyan-500" />,
   },
 ];
 

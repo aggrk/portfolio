@@ -33,6 +33,7 @@ export default function Hero() {
     "Full-Stack Developer",
     "Mobile App Developer",
     "React Enthusiast",
+    "Rustacean",
   ];
   const typingSpeed = 100;
 

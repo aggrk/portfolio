@@ -32,7 +32,7 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
 
   // Handle scroll to update active section
   const handleScroll = useCallback(() => {
-    const sections = ["home", "about", "projects", "contact"];
+    const sections = ["home", "about", "projects", "certificates", "contact"];
     const scrollPosition = window.scrollY + window.innerHeight / 2; // Center of viewport
     let newActiveSection = "home"; // Default to first section
 
@@ -139,37 +139,39 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
         </button>
 
         <ul className="hidden md:flex md:space-x-8">
-          {["home", "about", "projects", "contact"].map((section) => (
-            <motion.li
-              key={section}
-              variants={linkVariants}
-              whileHover="hover"
-              whileTap="tap"
-            >
-              <a
-                href={`#${section}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(section);
-                }}
-                className={`relative py-2 text-white hover:text-[#e52165] transition-colors duration-300 capitalize font-medium ${
-                  activeSection === section ? "text-[#e52165]" : ""
-                }`}
-                aria-current={activeSection === section ? "page" : undefined}
+          {["home", "about", "projects", "certificates", "contact"].map(
+            (section) => (
+              <motion.li
+                key={section}
+                variants={linkVariants}
+                whileHover="hover"
+                whileTap="tap"
               >
-                {section}
-                {activeSection === section && (
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#e52165]"
-                    layoutId="underline"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </a>
-            </motion.li>
-          ))}
+                <a
+                  href={`#${section}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(section);
+                  }}
+                  className={`relative py-2 text-white hover:text-[#e52165] transition-colors duration-300 capitalize font-medium ${
+                    activeSection === section ? "text-[#e52165]" : ""
+                  }`}
+                  aria-current={activeSection === section ? "page" : undefined}
+                >
+                  {section}
+                  {activeSection === section && (
+                    <motion.span
+                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#e52165]"
+                      layoutId="underline"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </a>
+              </motion.li>
+            )
+          )}
         </ul>
       </div>
 
@@ -185,30 +187,32 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
           className="absolute top-16 left-0 w-full bg-[#0d1137]/95 backdrop-blur-md shadow-xl overflow-hidden md:hidden z-50"
         >
           <ul className="p-4 flex flex-col items-center">
-            {["home", "about", "projects", "contact"].map((section) => (
-              <motion.li
-                key={section}
-                variants={linkVariants}
-                whileHover="hover"
-                whileTap="tap"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.2, delay: 0.1 }}
-              >
-                <a
-                  href={`#${section}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(section);
-                  }}
-                  className={`block py-3 text-white hover:text-[#e52165] transition-colors duration-300 capitalize font-medium ${
-                    activeSection === section ? "text-[#e52165]" : ""
-                  }`}
+            {["home", "about", "projects", "certfificates", "contact"].map(
+              (section) => (
+                <motion.li
+                  key={section}
+                  variants={linkVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.2, delay: 0.1 }}
                 >
-                  {section}
-                </a>
-              </motion.li>
-            ))}
+                  <a
+                    href={`#${section}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(section);
+                    }}
+                    className={`block py-3 text-white hover:text-[#e52165] transition-colors duration-300 capitalize font-medium ${
+                      activeSection === section ? "text-[#e52165]" : ""
+                    }`}
+                  >
+                    {section}
+                  </a>
+                </motion.li>
+              )
+            )}
           </ul>
         </motion.div>
       )}

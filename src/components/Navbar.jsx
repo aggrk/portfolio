@@ -187,7 +187,7 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
           className="absolute top-16 left-0 w-full bg-[#0d1137]/95 backdrop-blur-md shadow-xl overflow-hidden md:hidden z-50"
         >
           <ul className="p-4 flex flex-col items-center">
-            {["home", "about", "projects", "certfificates", "contact"].map(
+            {["home", "about", "projects", "certificates", "contact"].map(
               (section) => (
                 <motion.li
                   key={section}

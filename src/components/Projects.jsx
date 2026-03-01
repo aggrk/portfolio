@@ -1,13 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import { FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
-import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiExpress,
-  SiMongodb,
-} from "react-icons/si";
+import { FaReact, FaNodeJs } from "react-icons/fa";
+import { SiNextdotjs, SiExpress } from "react-icons/si";
 
 const projects = [
   {
@@ -19,7 +14,9 @@ const projects = [
     tags: ["Node.js", "Express", "MongoDB"],
     link: "https://documenter.getpostman.com/view/40148474/2sAYX2PQGQ",
     github: "#",
-    icon: <SiExpress className="text-gray-600" />,
+    icon: <SiExpress />,
+    iconColor: "text-gray-300",
+    featured: true,
   },
   {
     id: 2,
@@ -30,7 +27,9 @@ const projects = [
     tags: ["Next.js", "Tailwind"],
     link: "https://printforge-aggr.vercel.app/",
     github: "#",
-    icon: <SiNextdotjs className="text-black dark:text-white" />,
+    icon: <SiNextdotjs />,
+    iconColor: "text-white",
+    featured: true,
   },
   {
     id: 3,
@@ -41,40 +40,48 @@ const projects = [
     tags: ["React", "Tailwind"],
     link: "https://mazingira-aggr.netlify.app",
     github: "#",
-    icon: <FaReact className="text-cyan-500" />,
+    icon: <FaReact />,
+    iconColor: "text-cyan-400",
+    featured: false,
   },
   {
     id: 4,
     title: "Natours Frontend",
     description:
-      "Interactive tour booking platform with authentication, maps, and admin dashboard (currently in development).",
+      "Interactive tour booking platform with authentication, maps, and admin dashboard.",
     image: "/images/natours.jpg",
     tags: ["React", "Tailwind", "React Query"],
     link: "https://natours-aggr.netlify.app",
     github: "#",
-    icon: <FaReact className="text-cyan-500" />,
+    icon: <FaReact />,
+    iconColor: "text-cyan-400",
+    featured: false,
   },
   {
     id: 5,
     title: "UsePopcorn App",
     description:
-      "Movie search and rating application with watched list functionality (desktop only, mobile coming soon).",
+      "Movie search and rating application with watched list functionality.",
     image: "/images/popcorn.png",
     tags: ["React", "CSS", "OMDb API"],
     link: "https://movie-search-aggr.netlify.app/",
     github: "#",
-    icon: <FaReact className="text-cyan-500" />,
+    icon: <FaReact />,
+    iconColor: "text-cyan-400",
+    featured: false,
   },
   {
     id: 6,
     title: "React Quizzical",
     description:
-      "Interactive quiz application with score tracking and answer validation features.",
+      "Interactive quiz application with score tracking and answer validation.",
     image: "/images/quiz.png",
     tags: ["React", "CSS"],
     link: "https://react-quiz-aggr.netlify.app/",
     github: "#",
-    icon: <FaReact className="text-cyan-500" />,
+    icon: <FaReact />,
+    iconColor: "text-cyan-400",
+    featured: false,
   },
   {
     id: 7,
@@ -85,186 +92,198 @@ const projects = [
     tags: ["Node.js", "Express", "JWT"],
     link: "https://github.com/aggrk/ecommerce-api",
     github: "#",
-    icon: <SiExpress className="text-gray-600 dark:text-gray-200" />,
+    icon: <SiExpress />,
+    iconColor: "text-gray-300",
+    featured: false,
   },
 ];
 
-const projectVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-  hover: {
-    y: -10,
-    boxShadow:
-      "0 20px 25px -5px rgba(229, 33, 101, 0.1), 0 10px 10px -5px rgba(229, 33, 101, 0.04)",
-    transition: { duration: 0.3 },
-  },
-};
+function ProjectCard({ project, index }) {
+  const isLive = project.link.startsWith("https");
 
-const tagVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.3 },
-  },
-};
-
-export default function Projects() {
   return (
-    <motion.section
-      id="projects"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
-      className="py-24 bg-gradient-to-br from-[#0d1137] via-[#1a1f4e] to-[#2a2f6e] text-white relative overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.07,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="group relative flex flex-col border border-white/5 hover:border-[#e52165]/25 bg-white/[0.02] hover:bg-white/[0.04] rounded-xl overflow-hidden transition-all duration-400"
+      style={{
+        transition: "border-color 0.3s, background 0.3s, box-shadow 0.3s",
+      }}
+      whileHover={{ y: -6, boxShadow: "0 24px 60px rgba(229,33,101,0.1)" }}
     >
-      {/* Decorative elements */}
-      <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#e52165] opacity-10 blur-3xl"></div>
-      <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-[#0dd3ff] opacity-10 blur-3xl"></div>
+      {/* Image */}
+      <div className="relative h-48 overflow-hidden bg-[#0d1137]">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e2e] via-[#0a0e2e]/40 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-sm uppercase tracking-widest text-[#e52165] mb-4">
-            My Work
-          </h2>
-          <motion.h3 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-            Featured Projects
-          </motion.h3>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#e52165] to-[#0dd3ff] mx-auto"></div>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={projectVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover="hover"
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ staggerChildren: 0.1 }}
-              className="bg-[#1a1f4e] rounded-xl overflow-hidden border border-[#2a2f6e] shadow-2xl flex flex-col"
+        {/* Top-right action buttons — appear on hover */}
+        <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          {project.github !== "#" && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-[#0d1137]/90 border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-all duration-200 backdrop-blur-sm"
+              aria-label="GitHub"
             >
-              {/* Project Image */}
-              <div className="relative h-56 overflow-hidden group">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0d1137] to-transparent opacity-80"></div> */}
-                {/* <div className="absolute top-4 right-4 flex gap-2">
-                  {project.github && (
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-[#0d1137] p-2 rounded-full text-white"
-                    >
-                      <FiGithub className="text-lg" />
-                    </motion.a>
-                  )}
-                  {project.link && (
-                    <motion.a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-[#0d1137] p-2 rounded-full text-white"
-                    >
-                      <FiExternalLink className="text-lg" />
-                    </motion.a>
-                  )}
-                </div> */}
-              </div>
+              <FiGithub size={14} />
+            </a>
+          )}
+          {isLive && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-[#e52165]/90 border border-[#e52165] text-white hover:bg-[#e52165] transition-all duration-200 backdrop-blur-sm"
+              aria-label="Live site"
+            >
+              <FiExternalLink size={14} />
+            </a>
+          )}
+        </div>
 
-              {/* Project Content */}
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="text-3xl">{project.icon}</div>
-                  <h4 className="text-xl font-bold text-white">
-                    {project.title}
-                  </h4>
-                </div>
+        {/* Index number */}
+        <div className="absolute bottom-3 left-4">
+          <span className="font-mono text-xs text-white/20 tracking-widest">
+            0{project.id}
+          </span>
+        </div>
+      </div>
 
-                <p className="text-gray-300 mb-6 flex-1">
-                  {project.description}
-                </p>
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5">
+        {/* Title row */}
+        <div className="flex items-center gap-3 mb-3">
+          <span className={`text-xl ${project.iconColor} flex-shrink-0`}>
+            {project.icon}
+          </span>
+          <h4 className="text-base font-semibold text-white group-hover:text-[#e52165] transition-colors duration-300 leading-tight">
+            {project.title}
+          </h4>
+        </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <motion.span
-                      key={tag}
-                      variants={tagVariants}
-                      className="bg-[#0d1137] text-[#e52165] px-3 py-1 rounded-full text-xs font-medium border border-[#2a2f6e]"
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </div>
+        {/* Description */}
+        <p className="text-white/45 text-sm leading-relaxed flex-1 mb-4">
+          {project.description}
+        </p>
 
-                {/* Project Link */}
-                <motion.a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 5 }}
-                  className={`inline-flex items-center font-medium ${
-                    project.link.startsWith("https")
-                      ? "text-[#e52165] hover:text-[#d11a55]"
-                      : "text-gray-500 cursor-not-allowed"
-                  }`}
-                >
-                  {project.link.startsWith("https") ? (
-                    <>
-                      View Project <FiExternalLink className="ml-2" />
-                    </>
-                  ) : (
-                    "Coming Soon"
-                  )}
-                </motion.a>
-              </div>
-            </motion.div>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-0.5 rounded-full text-xs font-mono text-[#e52165]/80 border border-[#e52165]/15 bg-[#e52165]/5"
+            >
+              {tag}
+            </span>
           ))}
         </div>
 
-        {/* View More Button */}
+        {/* Footer link */}
+        <div className="pt-4 border-t border-white/5">
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ x: 4 }}
+            className={`inline-flex items-center gap-2 text-xs font-mono tracking-wide transition-colors duration-200 ${
+              isLive
+                ? "text-[#e52165]/70 hover:text-[#e52165]"
+                : "text-white/20 cursor-not-allowed pointer-events-none"
+            }`}
+          >
+            {isLive ? (
+              <>
+                View Project <FiExternalLink size={12} />
+              </>
+            ) : (
+              "Coming Soon"
+            )}
+          </motion.a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Projects() {
+  return (
+    <section
+      id="projects"
+      className="relative bg-[#0d1137] py-28 px-6 sm:px-10 lg:px-16 overflow-hidden"
+    >
+      {/* Background glows */}
+      <div className="absolute -top-32 -right-32 w-72 h-72 rounded-full bg-[#e52165] opacity-[0.06] blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -left-32 w-72 h-72 rounded-full bg-[#e52165] opacity-[0.04] blur-3xl pointer-events-none" />
+
+      {/* Top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+
+      <div className="relative max-w-7xl mx-auto">
+        {/* ── Section label ── */}
         <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-4"
         >
+          <span className="font-mono text-xs text-[#e52165]/70 tracking-[0.3em] uppercase">
+            03 / Projects
+          </span>
+          <div className="h-px w-14 bg-[#e52165]/20" />
+        </motion.div>
+
+        {/* ── Heading ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+          >
+            Featured <span className="text-[#e52165]">Work</span>
+          </motion.h2>
+
           <motion.a
             href="https://github.com/aggrk"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-[#e52165] to-[#9c1a4a] text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            initial={{ opacity: 0, x: 12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-[#e52165]/40 text-white/60 hover:text-white text-sm font-medium transition-all duration-300 self-start sm:self-auto flex-shrink-0"
           >
-            <FiGithub className="mr-2" /> View More on GitHub
+            <FiGithub size={15} />
+            View all on GitHub
           </motion.a>
-        </motion.div>
+        </div>
+
+        {/* ── Projects grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {projects.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
       </div>
-    </motion.section>
+
+      {/* Bottom border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+    </section>
   );
 }

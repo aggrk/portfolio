@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import { FaReact, FaNodeJs } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaRust } from "react-icons/fa";
 import { SiNextdotjs, SiExpress } from "react-icons/si";
 
 const projects = [
@@ -28,19 +28,18 @@ const projects = [
     link: "https://printforge-aggr.vercel.app/",
     github: "#",
     icon: <SiNextdotjs />,
-    iconColor: "text-white",
+    iconColor: "https://github.com/aggrk/printforge",
     featured: true,
   },
   {
     id: 3,
-    title: "Ardhi Digital",
-    description:
-      "Professional environmental tech company website with smooth animations, service showcases, and responsive design.",
-    image: "/images/ardhi.png",
-    tags: ["React", "Tailwind"],
-    link: "https://mazingira-aggr.netlify.app",
-    github: "#",
-    icon: <FaReact />,
+    title: "Todo App",
+    description: "A command-line todo application built with Rust.",
+    image: "/images/rust.png",
+    tags: ["Rust"],
+    link: "https://github.com/aggrk/rust_todo",
+    github: "https://github.com/aggrk/rust_todo",
+    icon: <FaRust />,
     iconColor: "text-cyan-400",
     featured: false,
   },
@@ -51,27 +50,14 @@ const projects = [
       "Interactive tour booking platform with authentication, maps, and admin dashboard.",
     image: "/images/natours.jpg",
     tags: ["React", "Tailwind", "React Query"],
-    link: "https://natours-aggr.netlify.app",
-    github: "#",
+    link: "https://github.com/aggrk/natours-frontend",
+    github: "https://github.com/aggrk/natours-frontend",
     icon: <FaReact />,
     iconColor: "text-cyan-400",
     featured: false,
   },
   {
     id: 5,
-    title: "UsePopcorn App",
-    description:
-      "Movie search and rating application with watched list functionality.",
-    image: "/images/popcorn.png",
-    tags: ["React", "CSS", "OMDb API"],
-    link: "https://movie-search-aggr.netlify.app/",
-    github: "#",
-    icon: <FaReact />,
-    iconColor: "text-cyan-400",
-    featured: false,
-  },
-  {
-    id: 6,
     title: "React Quizzical",
     description:
       "Interactive quiz application with score tracking and answer validation.",
@@ -84,7 +70,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 7,
+    id: 6,
     title: "Ecommerce API",
     description:
       "Full-featured e-commerce backend with product management, cart functionality, and user authentication.",

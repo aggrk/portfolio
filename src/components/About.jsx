@@ -8,6 +8,7 @@ import {
   FaPhp,
   FaDatabase,
   FaCode,
+  FaRust,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -38,6 +39,7 @@ const skillCategories = [
     skills: [
       { name: "Node.js", icon: <FaNodeJs />, color: "text-green-400" },
       { name: "Express", icon: <SiExpress />, color: "text-gray-300" },
+      { name: "Rust", icon: <FaRust />, color: "text-orange-400" },
       { name: "PHP", icon: <FaPhp />, color: "text-indigo-400" },
     ],
   },

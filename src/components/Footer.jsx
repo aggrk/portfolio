@@ -7,12 +7,12 @@ import { BsFillCloudFill } from "react-icons/bs";
 
 const socials = [
   { Icon: FiGithub, href: "https://github.com/aggrk", label: "GitHub" },
-  {
-    Icon: FaLinkedin,
-    href: "https://linkedin.com/in/kennedyphinias",
-    label: "LinkedIn",
-  },
-  { Icon: FaXTwitter, href: "https://x.com/ItsKennedyK", label: "Twitter" },
+  // {
+  //   Icon: FaLinkedin,
+  //   href: "https://linkedin.com/in/kennedyphinias",
+  //   label: "LinkedIn",
+  // },
+  // { Icon: FaXTwitter, href: "https://x.com/ItsKennedyK", label: "Twitter" },
   { Icon: FaTelegram, href: "https://t.me/ItsKennedyK", label: "Telegram" },
   {
     Icon: FaDiscord,

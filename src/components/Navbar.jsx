@@ -1,38 +1,77 @@
-/* eslint-disable no-unused-vars */
+/**
+ * Navbar component
+ *
+ * Font: Add to your index.html or global CSS —
+ *   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+ *   then set: font-family: 'DM Sans', sans-serif;
+ */
+
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useReducer, useCallback, useRef } from "react";
+
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const SECTIONS = ["home", "about", "projects", "certificates", "contact"];
 
+const NAV_SPRING = { type: "spring", stiffness: 380, damping: 32 };
+
+// ─── State ────────────────────────────────────────────────────────────────────
+
+const initialNavState = { activeSection: "home", isScrolled: false };
+
+function navReducer(state, action) {
+  switch (action.type) {
+    case "SCROLL_UPDATE":
+      // Bail out early — avoid re-render if nothing changed
+      if (
+        state.activeSection === action.activeSection &&
+        state.isScrolled === action.isScrolled
+      ) {
+        return state;
+      }
+      return {
+        activeSection: action.activeSection,
+        isScrolled: action.isScrolled,
+      };
+    default:
+      return state;
+  }
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
-  const [activeSection, setActiveSection] = useState("home");
+  const [{ activeSection, isScrolled }, dispatch] = useReducer(
+    navReducer,
+    initialNavState,
+  );
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef(null);
+
+  // ── Scroll tracking ──────────────────────────────────────────────────────
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY + window.innerHeight / 2;
-    let current = "home";
+    let nextSection = "home";
 
     for (const section of SECTIONS) {
       const el = document.getElementById(section);
-      if (el) {
-        const top = el.offsetTop - 100;
-        if (scrollPosition >= top) current = section;
+      if (el && scrollPosition >= el.offsetTop - 100) {
+        nextSection = section;
       }
     }
 
-    // Snap to contact at page bottom
-    if (
+    const atBottom =
       window.scrollY + window.innerHeight >=
-      document.documentElement.scrollHeight - 50
-    ) {
-      current = "contact";
-    }
+      document.documentElement.scrollHeight - 50;
 
-    setActiveSection(current);
-    setIsScrolled(window.scrollY > 50);
+    dispatch({
+      type: "SCROLL_UPDATE",
+      activeSection: atBottom ? "contact" : nextSection,
+      isScrolled: window.scrollY > 50,
+    });
   }, []);
 
   useEffect(() => {
@@ -40,6 +79,8 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  // ── Navigation ───────────────────────────────────────────────────────────
 
   const scrollToSection = useCallback(
     (section) => {
@@ -50,6 +91,8 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
     },
     [setIsMenuOpen],
   );
+
+  // ── Outside click ────────────────────────────────────────────────────────
 
   const handleOutsideClick = useCallback(
     (e) => {
@@ -65,7 +108,8 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
     return () => document.removeEventListener("click", handleOutsideClick);
   }, [handleOutsideClick]);
 
-  // Lock body scroll when mobile menu is open
+  // ── Body scroll lock ─────────────────────────────────────────────────────
+
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -73,43 +117,43 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
     };
   }, [isMenuOpen]);
 
+  // ─── Render ───────────────────────────────────────────────────────────────
+
   return (
     <>
-      {/* ── Navbar bar ────────────────────────────────────── */}
+      {/* ── Navbar ──────────────────────────────────────────── */}
       <motion.nav
         ref={navRef}
         initial={{ opacity: 0, y: -24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed w-full z-50 top-0 transition-all duration-500 ${
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-xl ${
           isScrolled
-            ? "bg-[#0d1137]/95 shadow-[0_4px_40px_rgba(229,33,101,0.08)]"
+            ? "bg-[#0d1137]/95 shadow-[0_1px_0_rgba(255,255,255,0.06)]"
             : "bg-[#0d1137]/80"
-        } backdrop-blur-xl`}
+        }`}
       >
-        {/* Top accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#e52165]/60 to-transparent" />
+        {/* Top border */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-[#e52165]/40" />
 
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex justify-between items-center h-[72px]">
+
             {/* ── Logo ── */}
             <motion.button
               onClick={() => scrollToSection("home")}
-              className="relative group flex items-center gap-2 focus:outline-none"
+              className="group flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] rounded"
               whileTap={{ scale: 0.97 }}
             >
-              {/* Animated bracket */}
-              <span className="text-[#e52165] font-mono text-lg opacity-60 group-hover:opacity-100 transition-opacity duration-300 select-none">
+              <span className="text-[#e52165] font-mono text-lg opacity-50 group-hover:opacity-100 transition-opacity duration-200 select-none">
                 &lt;
               </span>
               <span className="text-white text-lg font-semibold tracking-wide">
                 Kennedy <span className="text-[#e52165]">Phinias</span>
               </span>
-              <span className="text-[#e52165] font-mono text-lg opacity-60 group-hover:opacity-100 transition-opacity duration-300 select-none">
+              <span className="text-[#e52165] font-mono text-lg opacity-50 group-hover:opacity-100 transition-opacity duration-200 select-none">
                 /&gt;
               </span>
-              {/* Glow on hover */}
-              <span className="absolute inset-0 -z-10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#e52165]/5 blur-xl" />
             </motion.button>
 
             {/* ── Desktop nav links ── */}
@@ -125,42 +169,32 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
                         scrollToSection(section);
                       }}
                       aria-current={isActive ? "page" : undefined}
-                      className="relative flex items-center px-4 py-2 text-sm font-medium capitalize tracking-wide focus:outline-none group"
+                      className="relative flex items-center px-4 py-2 text-sm font-medium capitalize tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] rounded-full group"
                       whileTap={{ scale: 0.95 }}
                     >
-                      {/* Background pill on active */}
                       {isActive && (
                         <motion.span
                           layoutId="nav-pill"
-                          className="absolute inset-0 rounded-full bg-[#e52165]/10 border border-[#e52165]/20"
-                          transition={{
-                            type: "spring",
-                            stiffness: 380,
-                            damping: 32,
-                          }}
+                          className="absolute inset-0 rounded-full bg-[#e52165]/10 border border-[#e52165]/25"
+                          transition={NAV_SPRING}
                         />
                       )}
 
                       <span
-                        className={`relative z-10 transition-colors duration-300 ${
+                        className={`relative z-10 transition-colors duration-200 ${
                           isActive
                             ? "text-[#e52165]"
-                            : "text-white/60 group-hover:text-white"
+                            : "text-white/55 group-hover:text-white"
                         }`}
                       >
                         {section}
                       </span>
 
-                      {/* Dot indicator */}
                       {isActive && (
                         <motion.span
                           layoutId="nav-dot"
                           className="relative z-10 ml-1.5 w-1 h-1 rounded-full bg-[#e52165] flex-shrink-0"
-                          transition={{
-                            type: "spring",
-                            stiffness: 380,
-                            damping: 32,
-                          }}
+                          transition={NAV_SPRING}
                         />
                       )}
                     </motion.a>
@@ -168,7 +202,7 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
                 );
               })}
 
-              {/* CTA button */}
+              {/* CTA */}
               <li className="ml-4">
                 <motion.a
                   href="#contact"
@@ -176,31 +210,18 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
                     e.preventDefault();
                     scrollToSection("contact");
                   }}
-                  className="relative flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-white overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165]"
-                  whileHover={{ scale: 1.03 }}
+                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-white bg-[#e52165] hover:bg-[#c91d58] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1137]"
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  <span className="absolute inset-0 bg-[#e52165] transition-all duration-300" />
-                  <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="relative z-10">Hire me</span>
-                  <motion.span
-                    className="relative z-10 text-xs"
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 1.8,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    →
-                  </motion.span>
+                  Hire me →
                 </motion.a>
               </li>
             </ul>
 
             {/* ── Mobile hamburger ── */}
             <motion.button
-              className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-[#e52165]/40 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165]"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-[#e52165]/40 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle navigation menu"
               aria-expanded={isMenuOpen}
@@ -209,43 +230,32 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
               <div className="w-5 flex flex-col gap-[5px]">
                 <motion.span
                   className="block h-px bg-white rounded-full origin-center"
-                  animate={
-                    isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
-                  }
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 />
                 <motion.span
                   className="block h-px bg-white rounded-full"
-                  animate={
-                    isMenuOpen
-                      ? { opacity: 0, scaleX: 0 }
-                      : { opacity: 1, scaleX: 1 }
-                  }
+                  animate={isMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.span
                   className="block h-px bg-white rounded-full origin-center"
-                  animate={
-                    isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
-                  }
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 />
               </div>
             </motion.button>
           </div>
         </div>
 
-        {/* ── Scroll progress bar ── */}
+        {/* Scroll progress bar */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] origin-left"
-          style={{
-            scaleX,
-            background: "linear-gradient(90deg, #e52165, #ff6b9d)",
-          }}
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#e52165] origin-left"
+          style={{ scaleX }}
         />
       </motion.nav>
 
-      {/* ── Full-screen mobile menu ────────────────────────── */}
+      {/* ── Mobile menu ─────────────────────────────────────── */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -253,38 +263,21 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden flex flex-col"
-            style={{ background: "rgba(13,17,55,0.98)" }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 md:hidden flex flex-col bg-[#0d1137]"
           >
-            {/* Subtle radial glow */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(229,33,101,0.08) 0%, transparent 70%)",
-              }}
-            />
-
-            {/* Decorative corner lines */}
-            <div className="absolute top-24 left-8 w-12 h-px bg-[#e52165]/20" />
-            <div className="absolute top-24 left-8 w-px h-12 bg-[#e52165]/20" />
-            <div className="absolute bottom-16 right-8 w-12 h-px bg-[#e52165]/20" />
-            <div className="absolute bottom-16 right-8 w-px h-12 bg-[#e52165]/20 self-end" />
-
-            {/* Nav links */}
-            <ul className="flex flex-col items-center justify-center flex-1 gap-2">
+            <ul className="flex flex-col items-center justify-center flex-1 gap-1">
               {SECTIONS.map((section, i) => {
                 const isActive = activeSection === section;
                 return (
                   <motion.li
                     key={section}
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
+                    exit={{ opacity: 0, y: 10 }}
                     transition={{
-                      duration: 0.4,
-                      delay: i * 0.07,
+                      duration: 0.35,
+                      delay: i * 0.06,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >
@@ -294,29 +287,27 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
                         e.preventDefault();
                         scrollToSection(section);
                       }}
-                      className="relative flex items-center gap-3 px-8 py-3 group focus:outline-none"
+                      className="flex items-center gap-3 px-8 py-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] rounded"
                     >
-                      {/* Index number */}
-                      <span className="font-mono text-xs text-[#e52165]/40 w-5 text-right select-none">
+                      <span className="font-mono text-xs text-[#e52165]/35 w-5 text-right select-none tabular-nums">
                         0{i + 1}
                       </span>
 
-                      {/* Label */}
                       <span
-                        className={`text-3xl font-semibold capitalize tracking-wide transition-colors duration-300 ${
+                        className={`text-3xl font-semibold capitalize tracking-wide transition-colors duration-200 ${
                           isActive
                             ? "text-[#e52165]"
-                            : "text-white/50 group-hover:text-white"
+                            : "text-white/45 group-hover:text-white"
                         }`}
                       >
                         {section}
                       </span>
 
-                      {/* Active indicator */}
                       {isActive && (
                         <motion.span
                           layoutId="mobile-indicator"
                           className="w-1.5 h-1.5 rounded-full bg-[#e52165] flex-shrink-0"
+                          transition={NAV_SPRING}
                         />
                       )}
                     </a>
@@ -325,19 +316,23 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
               })}
             </ul>
 
-            {/* Bottom contact prompt */}
+            {/* Availability footer */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ delay: 0.4, duration: 0.4 }}
+              transition={{ delay: 0.35, duration: 0.3 }}
               className="pb-12 flex flex-col items-center gap-3"
+              aria-label="Availability status"
             >
-              <div className="h-px w-16 bg-white/10" />
-              <p className="text-white/30 text-xs tracking-widest uppercase font-mono">
+              <div className="h-px w-12 bg-white/10" />
+              <p className="text-white/25 text-xs tracking-widest uppercase font-mono">
                 Available for freelance
               </p>
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span
+                className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+                aria-hidden="true"
+              />
             </motion.div>
           </motion.div>
         )}

@@ -145,14 +145,8 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
               className="group flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] rounded"
               whileTap={{ scale: 0.97 }}
             >
-              <span className="text-[#e52165] font-mono text-lg opacity-50 group-hover:opacity-100 transition-opacity duration-200 select-none">
-                &lt;
-              </span>
               <span className="text-white text-lg font-semibold tracking-wide">
                 Kennedy <span className="text-[#e52165]">Phinias</span>
-              </span>
-              <span className="text-[#e52165] font-mono text-lg opacity-50 group-hover:opacity-100 transition-opacity duration-200 select-none">
-                /&gt;
               </span>
             </motion.button>
 

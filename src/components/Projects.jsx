@@ -6,36 +6,22 @@ import { SiNextdotjs, SiExpress } from "react-icons/si";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const projects = [
-    {
-      id: 1,
-      title: "Natours API",
-      description:
-        "Production-grade RESTful API for tour management and booking. JWT auth, role-based access control, advanced filtering, pagination, and geospatial queries.",
-      image: "/images/natours-api.png",
-      tags: ["Node.js", "Express", "MongoDB"],
-      link: "https://documenter.getpostman.com/view/40148474/2sAYX2PQGQ",
-      github: "#",
-      icon: <SiExpress />,
-      iconColor: "text-gray-300",
-      live: true,
-      featured: true,
-    },
-    {
-    id: 2,
-    title: "Sayukha Construction",
+  {
+    id: 1,
+    title: "Natours API",
     description:
-      "Corporate website for one of Tanzania's fastest-growing multi-engineering firm. Built to serve clients across mining, geology, and public sectors — communicating technical credibility and safety-first values to both local and foreign investors.",
-    image: "/images/sayukha.png",
-    tags: ["Next.js", "Tailwind","Express","MySQL"],
-    link: "https://sayukhaconstruction.co.tz",
+      "Production-grade RESTful API for tour management and booking. JWT auth, role-based access control, advanced filtering, pagination, and geospatial queries.",
+    image: "/images/natours-api.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    link: "https://documenter.getpostman.com/view/40148474/2sAYX2PQGQ",
     github: "#",
-    icon: <SiNextdotjs />,
-    iconColor: "text-white",
+    icon: <SiExpress />,
+    iconColor: "text-gray-300",
     live: true,
     featured: true,
   },
   {
-    id: 3,
+    id: 2,
     title: "Printforge",
     description:
       "Community platform for 3D printing enthusiasts. Browse, share, and download print-ready models with a responsive UI built for speed and discoverability.",
@@ -49,7 +35,7 @@ const projects = [
     featured: true,
   },
   {
-    id: 4,
+    id: 3,
     title: "Rust API",
     description:
       "Lightweight REST API in Rust. Memory-safe, fast, structured error handling, minimal overhead.",
@@ -63,7 +49,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 5,
+    id: 4,
     title: "Todo App",
     description:
       "CLI task manager in Rust with persistent local storage and a clean minimal interface.",
@@ -77,7 +63,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 6,
+    id: 5,
     title: "Natours Frontend",
     description:
       "Tour booking UI with React Query, interactive maps, booking flows, and a protected admin dashboard.",
@@ -91,7 +77,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 7,
+    id: 6,
     title: "React Quizzical",
     description:
       "Trivia app with real-time scoring, instant answer validation, and multiple question categories.",
@@ -105,7 +91,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 8,
+    id: 7,
     title: "Ecommerce API",
     description:
       "E-commerce backend with product catalog, cart sessions, order processing, and JWT auth.",
@@ -127,12 +113,12 @@ const rest = projects.filter((p) => !p.featured);
 
 function FeaturedCard({ project, index }) {
   return (
-       <motion.article
+    <motion.article
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.55, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative overflow-hidden border border-white/8 hover:border-white/16 transition-colors duration-300 flex flex-col"
+      className="group relative overflow-hidden border border-white/8 hover:border-white/16 transition-colors duration-300"
     >
       {/* Image — full bleed top half */}
       <div className="relative h-56 sm:h-64 overflow-hidden bg-[#080b24]">
@@ -154,7 +140,7 @@ function FeaturedCard({ project, index }) {
       </div>
 
       {/* Body */}
-      <div className="p-6 bg-[#0d1137] flex-1 flex flex-col">
+      <div className="p-6 bg-[#0d1137]">
         <div className="flex items-start justify-between gap-4 mb-3">
           <h3 className="text-xl font-semibold text-white leading-snug group-hover:text-[#e52165] transition-colors duration-200">
             {project.title}
@@ -185,7 +171,7 @@ function FeaturedCard({ project, index }) {
           </div>
         </div>
 
-       <p className="text-white/40 text-sm leading-relaxed flex-1">
+        <p className="text-white/40 text-sm leading-relaxed mb-5">
           {project.description}
         </p>
 
@@ -283,25 +269,11 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative bg-[#0d1137] py-28 px-6 sm:px-10 lg:px-16"
+      className="relative bg-[#0d1137] py-28"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-white/5" />
 
-      <div className="max-w-7xl mx-auto">
-
-        {/* Section label */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 mb-4"
-        >
-          <span className="font-mono text-xs text-[#e52165]/70 tracking-[0.3em] uppercase">
-            03 / Projects
-          </span>
-          <div className="h-px w-14 bg-[#e52165]/20" />
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Heading row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
@@ -333,9 +305,7 @@ export default function Projects() {
         </div>
 
         {/* ── Featured: 2-column asymmetric ── */}
-        <div className={`grid grid-cols-1 gap-px bg-white/5 mb-16 ${
-        featured.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
-      }`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5 mb-16">
           {featured.map((project, i) => (
             <FeaturedCard key={project.id} project={project} index={i} />
           ))}

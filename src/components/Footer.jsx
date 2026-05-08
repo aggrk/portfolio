@@ -1,32 +1,20 @@
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FiGithub } from "react-icons/fi";
-import { FaTelegram, FaLinkedin, FaDiscord } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaTelegram, FaDiscord } from "react-icons/fa";
 import { BsFillCloudFill } from "react-icons/bs";
 
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
 const socials = [
-  { Icon: FiGithub, href: "https://github.com/aggrk", label: "GitHub" },
-  // {
-  //   Icon: FaLinkedin,
-  //   href: "https://linkedin.com/in/kennedyphinias",
-  //   label: "LinkedIn",
-  // },
-  // { Icon: FaXTwitter, href: "https://x.com/ItsKennedyK", label: "Twitter" },
-  { Icon: FaTelegram, href: "https://t.me/ItsKennedyK", label: "Telegram" },
-  {
-    Icon: FaDiscord,
-    href: "https://discord.com/users/itskennedyk",
-    label: "Discord",
-  },
-  {
-    Icon: BsFillCloudFill,
-    href: "https://bsky.app/profile/itskennedyk.bsky.social",
-    label: "Bluesky",
-  },
+  { Icon: FiGithub,        href: "https://github.com/aggrk",                          label: "GitHub"   },
+  { Icon: FaTelegram,      href: "https://t.me/ItsKennedyK",                          label: "Telegram" },
+  { Icon: FaDiscord,       href: "https://discord.com/users/itskennedyk",              label: "Discord"  },
+  { Icon: BsFillCloudFill, href: "https://bsky.app/profile/itskennedyk.bsky.social",  label: "Bluesky"  },
 ];
 
 const navLinks = ["home", "about", "projects", "certificates", "contact"];
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -34,18 +22,11 @@ export default function Footer() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <footer className="relative bg-[#080c2a] border-t border-white/5 overflow-hidden">
-      {/* Top glow line */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, rgba(229,33,101,0.4), transparent)",
-        }}
-      />
+    <footer className="relative bg-[#080c2a] border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
 
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
           {/* Brand + tagline */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -56,12 +37,12 @@ export default function Footer() {
           >
             <button
               onClick={scrollToTop}
-              className="font-mono text-white/80 hover:text-white tracking-[0.15em] text-sm transition-colors duration-300"
+              className="text-white/70 hover:text-white text-sm font-semibold tracking-wide transition-colors duration-200 focus:outline-none"
             >
-              &lt;Kennedy Phinias /&gt;
+              Kennedy <span className="text-[#e52165]">Phinias</span>
             </button>
             <p className="font-light text-white/25 text-xs tracking-wide">
-              Building things for the web & mobile.
+              Building things for the web &amp; mobile.
             </p>
           </motion.div>
 
@@ -77,7 +58,7 @@ export default function Footer() {
               <button
                 key={link}
                 onClick={() => scrollTo(link)}
-                className="font-mono text-xs text-white/25 hover:text-[#e52165] capitalize tracking-wider transition-colors duration-300"
+                className="font-mono text-xs text-white/25 hover:text-white capitalize tracking-wider transition-colors duration-200 focus:outline-none"
               >
                 {link}
               </button>
@@ -90,21 +71,19 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-4"
           >
             {socials.map(({ Icon, href, label }) => (
-              <motion.a
+              <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                whileHover={{ y: -3, scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/5 text-white/25 hover:text-[#e52165] hover:border-[#e52165]/25 transition-all duration-300 text-sm"
+                className="text-white/25 hover:text-white transition-colors duration-200 text-base"
               >
                 <Icon />
-              </motion.a>
+              </a>
             ))}
           </motion.div>
         </div>
@@ -115,9 +94,10 @@ export default function Footer() {
             © {new Date().getFullYear()} Kennedy Phinias. All rights reserved.
           </p>
           <p className="font-mono text-xs text-white/15 tracking-wider">
-            Built with React & Framer Motion
+            Built with React &amp; Framer Motion
           </p>
         </div>
+
       </div>
     </footer>
   );

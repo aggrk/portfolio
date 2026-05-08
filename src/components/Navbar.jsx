@@ -136,7 +136,7 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
         {/* Top border */}
         <div className="absolute top-0 left-0 right-0 h-px bg-[#e52165]/40" />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex justify-between items-center h-[72px]">
 
             {/* ── Logo ── */}
@@ -198,18 +198,16 @@ export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
 
               {/* CTA */}
               <li className="ml-4">
-                <motion.a
+                <a
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection("contact");
                   }}
-                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-white bg-[#e52165] hover:bg-[#c91d58] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1137]"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
+                  className="flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-[#e52165] hover:bg-[#c91d58] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e52165] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1137]"
                 >
                   Hire me →
-                </motion.a>
+                </a>
               </li>
             </ul>
 

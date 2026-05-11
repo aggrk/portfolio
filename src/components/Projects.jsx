@@ -21,21 +21,35 @@ const projects = [
     featured: true,
   },
   {
-  id: 2,
-  title: "Sayukha Construction",
-  description:
-    "Corporate website for one of Tanzania's fastest-growing multi-engineering firm. Built to serve clients across mining, geology, and public sectors — communicating technical credibility and safety-first values to both local and foreign investors.",
-  image: "/images/sayukha.png",
-  tags: ["Next.js", "Tailwind", "Express", "MySQL"],
-  link: "https://sayukhaconstruction.co.tz",
-  github: "#",
-  icon: <SiNextdotjs />,
-  iconColor: "text-white",
-  live: true,
-  featured: true,  // ← must be true
-},
+    id: 2,
+    title: "Sayukha Construction",
+    description:
+      "Corporate website for one of Tanzania's fastest-growing multi-engineering firm. Built to serve clients across mining, geology, and public sectors — communicating technical credibility and safety-first values to both local and foreign investors.",
+    image: "/images/sayukha.png",
+    tags: ["Next.js", "Tailwind", "Express", "MySQL"],
+    link: "https://sayukhaconstruction.co.tz",
+    github: "#",
+    icon: <SiNextdotjs />,
+    iconColor: "text-white",
+    live: true,
+    featured: true,
+  },
   {
     id: 3,
+    title: "Mbiombio Delivery",
+    description:
+      "MbioMbio is a delivery service web platform built for Arusha, Tanzania. Features include a live order placement form, vehicle selection, Formspree-powered contact and order submission, and a fully SEO-optimised structure targeting local search in Northern Tanzania.",
+    image: "/images/mbiombio.png",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    link: "https://mbiombio.com",
+    github: "#",
+    icon: <SiNextdotjs />,
+    iconColor: "text-white",
+    live: true,
+    featured: true,
+  },
+  {
+    id: 4,
     title: "Printforge",
     description:
       "Community platform for 3D printing enthusiasts. Browse, share, and download print-ready models with a responsive UI built for speed and discoverability.",
@@ -49,7 +63,7 @@ const projects = [
     featured: true,
   },
   {
-    id: 4,
+    id: 5,
     title: "Rust API",
     description:
       "Lightweight REST API in Rust. Memory-safe, fast, structured error handling, minimal overhead.",
@@ -63,7 +77,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 5,
+    id: 6,
     title: "Todo App",
     description:
       "CLI task manager in Rust with persistent local storage and a clean minimal interface.",
@@ -77,7 +91,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 6,
+    id: 7,
     title: "Natours Frontend",
     description:
       "Tour booking UI with React Query, interactive maps, booking flows, and a protected admin dashboard.",
@@ -91,7 +105,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 7,
+    id: 8,
     title: "React Quizzical",
     description:
       "Trivia app with real-time scoring, instant answer validation, and multiple question categories.",
@@ -105,7 +119,7 @@ const projects = [
     featured: false,
   },
   {
-    id: 8,
+    id: 9,
     title: "Ecommerce API",
     description:
       "E-commerce backend with product catalog, cart sessions, order processing, and JWT auth.",
@@ -127,11 +141,15 @@ const rest = projects.filter((p) => !p.featured);
 
 function FeaturedCard({ project, index }) {
   return (
-     <motion.article
+    <motion.article
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: 0.55,
+        delay: index * 0.1,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className="group relative overflow-hidden border border-white/8 hover:border-white/16 transition-colors duration-300 flex flex-col"
     >
       {/* Image — full bleed top half */}
@@ -154,7 +172,7 @@ function FeaturedCard({ project, index }) {
       </div>
 
       {/* Body */}
-       <div className="p-6 bg-[#0d1137] flex-1 flex flex-col">
+      <div className="p-6 bg-[#0d1137] flex-1 flex flex-col">
         <div className="flex items-start justify-between gap-4 mb-3">
           <h3 className="text-xl font-semibold text-white leading-snug group-hover:text-[#e52165] transition-colors duration-200">
             {project.title}
@@ -213,7 +231,11 @@ function ProjectRow({ project, index }) {
       initial={{ opacity: 0, x: -12 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.06,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className="group grid grid-cols-[auto_1fr_auto] items-center gap-6 py-5 border-b border-white/5 hover:border-white/10 transition-colors duration-200"
     >
       {/* Number */}
@@ -224,7 +246,10 @@ function ProjectRow({ project, index }) {
       {/* Title + description */}
       <div className="min-w-0">
         <div className="flex items-center gap-3 mb-1">
-          <span className={`${project.iconColor} flex-shrink-0`} aria-hidden="true">
+          <span
+            className={`${project.iconColor} flex-shrink-0`}
+            aria-hidden="true"
+          >
             {project.icon}
           </span>
           <h4 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors duration-200 truncate">
@@ -233,7 +258,10 @@ function ProjectRow({ project, index }) {
           {/* Tags inline */}
           <div className="hidden sm:flex gap-2 flex-shrink-0">
             {project.tags.map((tag) => (
-              <span key={tag} className="font-mono text-[10px] text-white/20 uppercase tracking-wider">
+              <span
+                key={tag}
+                className="font-mono text-[10px] text-white/20 uppercase tracking-wider"
+              >
                 {tag}
               </span>
             ))}
@@ -281,14 +309,10 @@ function ProjectRow({ project, index }) {
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="relative bg-[#0d1137] py-28"
-    >
+    <section id="projects" className="relative bg-[#0d1137] py-28">
       <div className="absolute top-0 left-0 right-0 h-px bg-white/5" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-
         {/* Heading row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
           <motion.h2
@@ -319,9 +343,11 @@ export default function Projects() {
         </div>
 
         {/* ── Featured: 2-column asymmetric ── */}
-       <div className={`grid grid-cols-1 gap-px bg-white/5 mb-16 ${
-  featured.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
-}`}>
+        <div
+          className={`grid grid-cols-1 gap-px  mb-16 ${
+            featured.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
+          }`}
+        >
           {featured.map((project, i) => (
             <FeaturedCard key={project.id} project={project} index={i} />
           ))}
